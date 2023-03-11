@@ -23,7 +23,7 @@ public class Player_Controller : MonoBehaviour
     float velocity;
 
 
-    void Start()
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
         ani = GetComponent<Animator>();
@@ -32,7 +32,12 @@ public class Player_Controller : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+
+    }
+
+    private void FixedUpdate()
     {
         Movement();
     }
@@ -46,7 +51,7 @@ public class Player_Controller : MonoBehaviour
 
         GetVelocity(moveInput);
         //rb.velocity = moveInput * speed;
-        rb.AddForce(moveInput * speed / Time.deltaTime);
+        rb.AddForce(moveInput * speed / Time.fixedDeltaTime);
 
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
