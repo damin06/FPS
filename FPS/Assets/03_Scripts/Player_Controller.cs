@@ -8,7 +8,7 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float speed = 5;
     [SerializeField] float acceleration = 0.1f;
     [SerializeField] float decceleration = 0.5f;
-
+    
     Rigidbody rb;
     Animator ani;
     Transform cam;
