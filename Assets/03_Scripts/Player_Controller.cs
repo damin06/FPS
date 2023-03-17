@@ -8,14 +8,16 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float speed = 5;
     [SerializeField] float acceleration = 0.1f;
     [SerializeField] float decceleration = 0.5f;
-    
+    float currentspeed => new Vector2(ch.velocity.x, ch.velocity.z).magnitude;
+
+
+    CharacterController ch;
     Rigidbody rb;
     Animator ani;
     Transform cam;
 
     Vector3 look;
     Vector3 camForward;
-    Vector3 move;
     Vector3 moveinput;
 
     float forwardAmount;
@@ -27,36 +29,26 @@ public class Player_Controller : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         ani = GetComponent<Animator>();
-
+        ch = GetComponent<CharacterController>();
         cam = Camera.main.transform;
     }
 
     // Update is called once per frame
     private void Update()
     {
-
+        Animtaion_Controll(PlayerInput.MoveInput.x, PlayerInput.MoveInput.z);
     }
 
     private void FixedUpdate()
     {
         Movement();
+        Rotation();
     }
 
-    private void Movement()
+    private void Rotation()
     {
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
-
-        Vector3 moveInput = new Vector3(x, 0, z);
-
-        GetVelocity(moveInput);
-        //rb.velocity = moveInput * speed;
-        rb.AddForce(moveInput * speed / Time.fixedDeltaTime);
-
-
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
 
         if (Physics.Raycast(ray, out hit, 100))
         {
@@ -66,12 +58,22 @@ public class Player_Controller : MonoBehaviour
         lookpos.y = 0;
 
         transform.LookAt(transform.position + lookpos, Vector3.up);
+    }
 
-        Animtaion_Controll(x, z);
+    private void Movement()
+    {
+
+        ch.Move(PlayerInput.MoveInput * speed * Time.fixedDeltaTime);
+
+        GetVelocity(PlayerInput.MoveInput);
+        //rb.velocity = moveInput * speed;
+
+        //rb.AddForce(PlayerInput.MoveInput * speed / Time.fixedDeltaTime);
     }
 
     private void Animtaion_Controll(float x, float z)
     {
+        Vector3 move;
         if (cam != null)
         {
             camForward = Vector3.Scale(cam.up, new Vector3(1, 0, 1)).normalized;
