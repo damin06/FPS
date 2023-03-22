@@ -1982,6 +1982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
+  RotateSpeed: 8
   acceleration: 0.57
   decceleration: 1.37
 --- !u!1 &1695502257
@@ -4443,15 +4444,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4858739169938354569, guid: 65f83f2946e528545936e8ce004b6ed1, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1351616
+      value: 0.13516162
       objectReference: {fileID: 0}
     - target: {fileID: 4858739169938354569, guid: 65f83f2946e528545936e8ce004b6ed1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000002436717
+      value: -0.000000016239541
       objectReference: {fileID: 0}
     - target: {fileID: 4858739169938354569, guid: 65f83f2946e528545936e8ce004b6ed1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000003324008
+      value: 0.0000000022152913
       objectReference: {fileID: 0}
     - target: {fileID: 4858739169938354569, guid: 65f83f2946e528545936e8ce004b6ed1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5062,15 +5063,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6208017285326110983, guid: a378be68c0b61224faac9af8b243f77d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.1351616
+      value: 0.13516162
       objectReference: {fileID: 0}
     - target: {fileID: 6208017285326110983, guid: a378be68c0b61224faac9af8b243f77d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.00000002436717
+      value: -0.000000016239541
       objectReference: {fileID: 0}
     - target: {fileID: 6208017285326110983, guid: a378be68c0b61224faac9af8b243f77d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000003324008
+      value: 0.0000000022152913
       objectReference: {fileID: 0}
     - target: {fileID: 6208017285326110983, guid: a378be68c0b61224faac9af8b243f77d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -6,9 +6,10 @@ using UnityEngine;
 public class Player_Controller : MonoBehaviour
 {
     [SerializeField] private float speed = 5;
+    [SerializeField] private float RotateSpeed = 8;
     [SerializeField] float acceleration = 0.1f;
     [SerializeField] float decceleration = 0.5f;
-    float currentspeed => new Vector2(ch.velocity.x, ch.velocity.z).magnitude;
+    [SerializeField] float currentspeed => new Vector2(ch.velocity.x, ch.velocity.z).magnitude;
 
 
     CharacterController ch;
@@ -57,7 +58,10 @@ public class Player_Controller : MonoBehaviour
         Vector3 lookpos = look - transform.position;
         lookpos.y = 0;
 
-        transform.LookAt(transform.position + lookpos, Vector3.up);
+        //transform.LookAt(transform.position + lookpos, Vector3.up);
+
+        Quaternion toRotation = Quaternion.LookRotation(lookpos);
+        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, RotateSpeed * Time.deltaTime);
     }
 
     private void Movement()
