@@ -6,11 +6,12 @@ public class GunController : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] private Transform FriePos;
+    private LineRenderer li;
 
     private int CurAmmo;
     void Start()
     {
-
+        li = GetComponent<LineRenderer>();
     }
 
     // Update is called once per frame
@@ -25,7 +26,14 @@ public class GunController : MonoBehaviour
 
         if (Physics.Raycast(FriePos.position, FriePos.forward, out ray, 50))
         {
-
+            if (ray.collider)
+            {
+                IDamage hitTarget = ray.collider.GetComponent<IDamage>();
+                if (hitTarget != null)
+                {
+                    hitTarget.IDamage(4, ray.normal);
+                }
+            }
         }
     }
 }
