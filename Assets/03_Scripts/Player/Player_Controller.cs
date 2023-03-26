@@ -37,7 +37,7 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Animtaion_Controll(PlayerInput.MoveInput.x, PlayerInput.MoveInput.z);
+        Animtaion_Controll(PlayerInput.Instace.MoveInput.x, PlayerInput.Instace.MoveInput.z);
     }
 
     private void FixedUpdate()
@@ -67,14 +67,14 @@ public class Player_Controller : MonoBehaviour
     private void Movement()
     {
 
-        ch.Move(PlayerInput.MoveInput * speed * Time.fixedDeltaTime);
+        ch.Move(PlayerInput.Instace.MoveInput * speed * Time.fixedDeltaTime);
 
-        GetVelocity(PlayerInput.MoveInput);
+        GetVelocity(PlayerInput.Instace.MoveInput);
         //rb.velocity = moveInput * speed;
 
         //rb.AddForce(PlayerInput.MoveInput * speed / Time.fixedDeltaTime);
     }
-    
+
 
     private void Animtaion_Controll(float x, float z)
     {

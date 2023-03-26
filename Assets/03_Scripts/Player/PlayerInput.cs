@@ -1,10 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public static Vector3 MoveInput { get; private set; }
+    public static PlayerInput Instace { get; private set; }
+    public Vector3 MoveInput;
+
     void Start()
     {
 
