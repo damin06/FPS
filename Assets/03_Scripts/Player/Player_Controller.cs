@@ -74,6 +74,7 @@ public class Player_Controller : MonoBehaviour
 
         //rb.AddForce(PlayerInput.MoveInput * speed / Time.fixedDeltaTime);
     }
+    
 
     private void Animtaion_Controll(float x, float z)
     {
