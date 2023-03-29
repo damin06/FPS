@@ -5,8 +5,10 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    public static PlayerInput Instace { get; private set; }
-    public Vector3 MoveInput;
+    static public PlayerInput Instance;
+    public Vector3 MoveInput { get; private set; }
+    public Action OnShot { get; set; }
+    public Action OnReload { get; set; }
 
     void Start()
     {
@@ -20,5 +22,16 @@ public class PlayerInput : MonoBehaviour
         float z = Input.GetAxisRaw("Vertical");
 
         MoveInput = new Vector3(x, 0, z);
+
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            OnReload?.Invoke();
+        }
+
+        if (Input.GetButton("Fire1"))
+        {
+            OnShot?.Invoke();
+        }
     }
 }

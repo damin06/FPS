@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunSetting : MonoBehaviour
+public class FollowGun : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private Transform GunPos;
     void Start()
     {
 
@@ -13,6 +13,6 @@ public class GunSetting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        transform.position = GunPos.position;
     }
 }
