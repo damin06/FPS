@@ -60,7 +60,6 @@ public class Player_Controller : MonoBehaviour
         Vector3 lookpos = look - transform.position;
         lookpos.y = 0;
 
-        //transform.LookAt(transform.position + lookpos, Vector3.up);
 
         Quaternion toRotation = Quaternion.LookRotation(lookpos);
         transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, RotateSpeed * Time.deltaTime);
@@ -68,13 +67,8 @@ public class Player_Controller : MonoBehaviour
 
     private void Movement()
     {
-
-        ch.Move(playerInput.MoveInput * speed * Time.fixedDeltaTime);
-
+        ch.SimpleMove(playerInput.MoveInput * speed);
         GetVelocity(playerInput.MoveInput);
-        //rb.velocity = moveInput * speed;
-
-        //rb.AddForce(playerInput.MoveInput * speed / Time.fixedDeltaTime);
     }
 
 
@@ -104,8 +98,8 @@ public class Player_Controller : MonoBehaviour
         forwardAmount = localMove.z;
 
 
-        ani.SetFloat("InputX", forwardAmount, 0.1f, Time.deltaTime);
-        ani.SetFloat("InputZ", turnAmount, 0.1f, Time.deltaTime);
+        ani.SetFloat("InputX", localMove.z, 0.1f, Time.deltaTime);
+        ani.SetFloat("InputZ", localMove.x, 0.1f, Time.deltaTime);
     }
 
     private void GetVelocity(Vector3 moveinput)
@@ -119,8 +113,7 @@ public class Player_Controller : MonoBehaviour
             velocity -= Time.deltaTime * decceleration;
         }
 
-        ani.SetFloat("velocity", 0);
+        ani.SetFloat("velocity", velocity);
     }
-
 
 }
