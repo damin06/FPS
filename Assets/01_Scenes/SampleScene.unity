@@ -492,6 +492,7 @@ PrefabInstance:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4596257977174836, guid: 2d76735a04644bf4db01739a1f694f30, type: 3}
@@ -534,6 +535,21 @@ PrefabInstance:
 =======
       value: 0.5120669
 >>>>>>> parent of ef2fe2b (paricle)
+=======
+      value: -0.5120669
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596257977174836, guid: 2d76735a04644bf4db01739a1f694f30, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.48763466
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596257977174836, guid: 2d76735a04644bf4db01739a1f694f30, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.48763466
+      objectReference: {fileID: 0}
+    - target: {fileID: 4596257977174836, guid: 2d76735a04644bf4db01739a1f694f30, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.5120669
+>>>>>>> parent of ef2fe2b (paricle)
       objectReference: {fileID: 0}
     - target: {fileID: 4596257977174836, guid: 2d76735a04644bf4db01739a1f694f30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -544,6 +560,7 @@ PrefabInstance:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       value: -90
 =======
       value: -92.8
@@ -551,6 +568,9 @@ PrefabInstance:
 =======
       value: -83.9
 >>>>>>> parent of 449987b (Revert "paricle")
+=======
+      value: -92.8
+>>>>>>> parent of ef2fe2b (paricle)
 =======
       value: -92.8
 >>>>>>> parent of ef2fe2b (paricle)
@@ -737,6 +757,7 @@ MonoBehaviour:
   Damage: 4
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> parent of ef2fe2b (paricle)
 =======
 --- !u!114 &303126567
@@ -754,6 +775,8 @@ MonoBehaviour:
   commonHitEffect: {fileID: 246131326025305880, guid: 76ac071befcd24043a46ed985ec38b00, type: 3}
   bloodHitEffect: {fileID: 0}
 >>>>>>> parent of 449987b (Revert "paricle")
+=======
+>>>>>>> parent of ef2fe2b (paricle)
 =======
 >>>>>>> parent of ef2fe2b (paricle)
 --- !u!1 &311315975
@@ -3732,6 +3755,7 @@ MeshRenderer:
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
 =======
   - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
@@ -3739,6 +3763,9 @@ MeshRenderer:
 =======
   - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
 >>>>>>> parent of 449987b (Revert "paricle")
+=======
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+>>>>>>> parent of ef2fe2b (paricle)
 =======
   - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 >>>>>>> parent of ef2fe2b (paricle)
