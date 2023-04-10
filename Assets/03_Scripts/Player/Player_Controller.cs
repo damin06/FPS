@@ -12,7 +12,6 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] float currentspeed => new Vector2(ch.velocity.x, ch.velocity.z).magnitude;
 
 
-    PlayerInput playerInput;
     CharacterController ch;
     Rigidbody rb;
     Animator ani;
@@ -29,7 +28,6 @@ public class Player_Controller : MonoBehaviour
 
     private void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
         ani = GetComponent<Animator>();
         ch = GetComponent<CharacterController>();
@@ -39,7 +37,7 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Animtaion_Controll(playerInput.MoveInput.x, playerInput.MoveInput.z);
+        Animtaion_Controll(PlayerInput.Instace.MoveInput.x, PlayerInput.Instace.MoveInput.z);
     }
 
     private void FixedUpdate()
@@ -69,12 +67,12 @@ public class Player_Controller : MonoBehaviour
     private void Movement()
     {
 
-        ch.Move(playerInput.MoveInput * speed * Time.fixedDeltaTime);
+        ch.Move(PlayerInput.Instace.MoveInput * speed * Time.fixedDeltaTime);
 
-        GetVelocity(playerInput.MoveInput);
+        GetVelocity(PlayerInput.Instace.MoveInput);
         //rb.velocity = moveInput * speed;
 
-        //rb.AddForce(playerInput.MoveInput * speed / Time.fixedDeltaTime);
+        //rb.AddForce(PlayerInput.MoveInput * speed / Time.fixedDeltaTime);
     }
 
 
@@ -119,7 +117,7 @@ public class Player_Controller : MonoBehaviour
             velocity -= Time.deltaTime * decceleration;
         }
 
-        ani.SetFloat("velocity", 0);
+        ani.SetFloat("velocity", velocity);
     }
 
 
