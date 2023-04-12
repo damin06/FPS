@@ -6,7 +6,7 @@ using static BulletHole;
 public class BulletHole : MonoBehaviour
 {
     private static BulletHole m_Instance;
-
+    [SerializeField] private LayerMask _lay;
     public static BulletHole Instance
     {
         get
@@ -26,17 +26,25 @@ public class BulletHole : MonoBehaviour
 
     private EffecType effecType;
 
-    public void PlayHitEffect(Vector3 pos, Vector3 normal, Transform parent = null, EffecType effectType = EffecType.Common)
+    public void PlayHitEffect(Vector3 pos, Vector3 normal, Transform parent = null)
     {
         var targetEffect = commonHitEffect;
 
+        var target = parent.gameObject.GetComponent<IDamage>();
 
-        switch (effecType)
+        if (target != null)
         {
-            case EffecType.Blood:
-                targetEffect = bloodHitEffect;
-                break;
+            targetEffect = bloodHitEffect;
         }
+        // switch (parent.gameObject.layer)
+        // {
+        //     case  :
+        //         targetEffect = commonHitEffect;
+        //         break;
+        //     case EffecType.Blood:
+        //         targetEffect = bloodHitEffect;
+        //         break;
+        // }
 
         var effect = Instantiate(targetEffect, pos, Quaternion.LookRotation(normal));
         effect.Emit(1);

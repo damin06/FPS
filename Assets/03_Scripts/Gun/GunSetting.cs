@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunSetting : MonoBehaviour
+[CreateAssetMenu(menuName = "SO/Gun/GunsSetting")]
+public class GunSetting : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public Transform FriePos;
+    public float GunEffectTime;
+    public float ReloadTime;
+    public float Damage;
+    public int MaxAmmo;
+    public float MaxDis;
+    public float TimebetweenShot;
 }
