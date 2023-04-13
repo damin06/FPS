@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GunBase[] _weapons;
+    public GunBase _gunBase;
+    private GunBase _lastBase;
+
     void Start()
     {
-        
+        _gunBase = _weapons[0];
+        _lastBase = _gunBase;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        PlayerInput.Instance.OnShot += _gunBase.shot;
+    }
+
+    int temp;
+    private void WeaponChange()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            temp--;
+        }
+        Mathf.Clamp(temp, 0, _weapons.Length);
     }
 }

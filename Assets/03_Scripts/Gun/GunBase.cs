@@ -13,7 +13,7 @@ enum State
 public abstract class GunBase : MonoBehaviour
 {
     [SerializeField] protected GunSetting _data;
-    protected float _CurAmmo;
+    public float _CurAmmo;
     public float _currentAmmo
     {
         get { return _CurAmmo; }
@@ -27,10 +27,10 @@ public abstract class GunBase : MonoBehaviour
 
     private void Start()
     {
-        InitSetting();
+        //InitSetting();
         _currentAmmo = _data.MaxAmmo;
     }
-    public abstract void InitSetting();
+    //public abstract void InitSetting();
 
     public virtual void shot()
     {
