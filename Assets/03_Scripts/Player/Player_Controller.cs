@@ -9,9 +9,9 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] private float RotateSpeed = 8;
     [SerializeField] float acceleration = 0.1f;
     [SerializeField] float decceleration = 0.5f;
-    [SerializeField] float currentspeed => new Vector2(ch.velocity.x, ch.velocity.z).magnitude;
+    [SerializeField] LayerMask groundMask;
 
-
+    private float currentspeed => new Vector2(ch.velocity.x, ch.velocity.z).magnitude;
     PlayerInput playerInput;
     CharacterController ch;
     Rigidbody rb;
@@ -48,21 +48,46 @@ public class Player_Controller : MonoBehaviour
         Rotation();
     }
 
+    private (bool success, Vector3 position) GetMousePosition()
+    {
+        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, groundMask))
+        {
+            // The Raycast hit something, return with the position.
+            return (success: true, position: hitInfo.point);
+        }
+        else
+        {
+            // The Raycast did not hit anything.
+            return (success: false, position: Vector3.zero);
+        }
+    }
+
     private void Rotation()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
+        // Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 100))
+        // if (Physics.Raycast(ray, out hit, 100))
+        // {
+        //     look = hit.point;
+        // }
+        // Vector3 lookpos = look - transform.position;
+        // lookpos.y = 0;
+
+
+        // Quaternion toRotation = Quaternion.LookRotation(lookpos, Vector3.up);
+        // transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, RotateSpeed * Time.deltaTime);
+
+        var (success, position) = GetMousePosition();
+        if (success)
         {
-            look = hit.point;
+            var direction = position - transform.position;
+            direction.y = 0;
+
+            transform.forward = direction;
         }
-        Vector3 lookpos = look - transform.position;
-        lookpos.y = 0;
-
-
-        Quaternion toRotation = Quaternion.LookRotation(lookpos);
-        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, RotateSpeed * Time.deltaTime);
     }
 
     private void Movement()
