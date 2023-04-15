@@ -17,7 +17,7 @@ public class Enemy_Follow : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
 
-        if (_enemy.Distance() <= _enemy._attackRange && _enemy.CandShot())
+        if (_enemy.Distance() <= _enemy._attackRange && _enemy.CandShot() && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             animator.SetTrigger("Attack");
             return;
