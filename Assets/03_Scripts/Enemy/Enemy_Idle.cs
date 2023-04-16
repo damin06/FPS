@@ -16,6 +16,14 @@ public class Enemy_Idle : StateMachineBehaviour
     {
         // if (_enemy.Distance() <= _enemy._attackRange && _enemy.CandShot())
         //     animator.SetTrigger("Attack");
+
+        if (_enemy.Distance() <= _enemy._attackRange)
+        {
+            animator.SetBool("AttackRange", true);
+            return;
+        }
+
+
         if (_enemy.Distance() > _enemy._followRange)
             animator.SetBool("IsFollow", false);
 

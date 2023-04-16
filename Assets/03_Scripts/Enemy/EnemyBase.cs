@@ -59,7 +59,8 @@ public class EnemyBase : MonoBehaviour
 
     public void Rotate()
     {
-        Quaternion toRotation = Quaternion.LookRotation(_player.transform.position, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 4 * Time.deltaTime);
+        transform.LookAt(_player.transform.position, Vector3.up);
+        // Quaternion toRotation = Quaternion.LookRotation(_player.transform.position, Vector3.up);
+        // transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, 50 * Time.deltaTime);
     }
 }
