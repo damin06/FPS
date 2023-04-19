@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyBase : MonoBehaviour
 {
@@ -18,15 +19,17 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private Transform _firePos;
 
 
-
-    public GameObject _player;
+    [HideInInspector]
+    public Transform _player;
     private LineRenderer _line;
+    private NavMeshAgent _agent;
     private float _lastShot = -1000f;
 
     void Awake()
     {
-        //_player = GameObject.Find("Player").GetComponent<Player_Controller>();
+        _player = GameObject.Find("Player").transform;
         _line = GetComponent<LineRenderer>();
+        _agent = GetComponent<NavMeshAgent>();
     }
 
     public float Distance() => Vector3.Distance(transform.position, _player.transform.position);
@@ -54,7 +57,13 @@ public class EnemyBase : MonoBehaviour
 
     public void FollowPlayer()
     {
-        transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, Time.deltaTime * _speed);
+        //transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, Time.deltaTime * _speed);
+        _agent.SetDestination(_player.position);
+    }
+
+    public void Stop()
+    {
+        _agent.ResetPath();
     }
 
     public void Rotate()
