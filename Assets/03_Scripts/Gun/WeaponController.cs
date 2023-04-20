@@ -4,30 +4,31 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public GunBase[] _weapons;
+    private GunBase[] _weapons;
     public GunBase _gunBase;
     private GunBase _lastBase;
 
     void Start()
     {
-        _gunBase = _weapons[0];
-        _lastBase = _gunBase;
+        _weapons = GetComponentsInChildren<GunBase>();
+        WeaponChange(0);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        PlayerInput.Instance.OnShot += _gunBase.shot;
+
     }
 
-    int temp;
-    private void WeaponChange()
+    private void WeaponChange(int index)
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        for (int i = 0; i < _weapons.Length; i++)
         {
-            temp--;
+            _weapons[i].gameObject.SetActive(false);
         }
-        Mathf.Clamp(temp, 0, _weapons.Length);
+        _weapons[index].gameObject.SetActive(true);
+
+        PlayerInput.Instance.OnShot += _weapons[index].shot;
     }
 }

@@ -19,8 +19,8 @@ public abstract class GunBase : MonoBehaviour
         get { return _CurAmmo; }
         set
         {
-            _CurAmmo = Mathf.Clamp(value, 0, _data.MaxAmmo);
             if (_CurAmmo <= 0) _state = State.Empty;
+            _CurAmmo = Mathf.Clamp(value, 0, _data.MaxAmmo);
         }
     }
     private State _state;
