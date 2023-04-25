@@ -32,10 +32,11 @@ public class BulletHole : MonoBehaviour
 
         var target = parent.gameObject.GetComponent<IDamage>();
 
-        if (target != null)
-        {
-            targetEffect = bloodHitEffect;
-        }
+        // if (target != null)
+        // {
+        //     targetEffect = bloodHitEffect;
+        // }
+
         // switch (parent.gameObject.layer)
         // {
         //     case  :

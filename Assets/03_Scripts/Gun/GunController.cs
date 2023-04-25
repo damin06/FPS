@@ -36,8 +36,8 @@ public class GunController : MonoBehaviour
     private LineRenderer line;
     private bool CandShot = true;
 
-    private float lastShot;
     State _gunState;
+    private float _lastShot;
     private int _curAmmo;
     public int _CurAmmo
     {
@@ -47,14 +47,12 @@ public class GunController : MonoBehaviour
         }
         set
         {
+            _curAmmo = value;
             if (_curAmmo <= 0)
             {
-                StopCoroutine("WaitShot");
+                //StopAllCoroutines();
+                //StopCoroutine("WaitShot");
                 _gunState = State.Empty;
-            }
-            else
-            {
-                _curAmmo = value;
             }
         }
     }
@@ -68,7 +66,7 @@ public class GunController : MonoBehaviour
 
         line = GetComponent<LineRenderer>();
 
-        _curAmmo = MaxAmmo;
+        _CurAmmo = MaxAmmo;
         _gunState = State.idle;
 
     }
@@ -88,7 +86,7 @@ public class GunController : MonoBehaviour
     {
         _gunState = State.Reloading;
         yield return new WaitForSeconds(ReloadTime);
-        _curAmmo = MaxAmmo;
+        _CurAmmo = MaxAmmo;
         _gunState = State.idle;
         CandShot = true;
 
@@ -105,10 +103,11 @@ public class GunController : MonoBehaviour
 
     private void Shoot()
     {
-        if (_gunState == State.idle && CandShot)
+        if (_gunState == State.idle && _lastShot + TimebetweenShot < Time.time)
         {
+            _lastShot = Time.time;
             Debug.Log("shoting!");
-            StartCoroutine("WaitShot");
+            //StartCoroutine("WaitShot");
 
             RaycastHit ray;
             Vector3 hitPos = Vector3.zero;
@@ -143,7 +142,7 @@ public class GunController : MonoBehaviour
 
 
             StartCoroutine(ShotEffect(hitPos));
-            _curAmmo--;
+            _CurAmmo--;
         }
     }
 
