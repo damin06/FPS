@@ -1,18 +1,7 @@
-// |이 코드는 총을 조작하는 GunController 클래스를 구현한 것입니다.
-// |
-// |좋은 점:
-// |- 코드가 깔끔하고 가독성이 좋습니다.
-// |- 변수와 함수의 이름이 명확하게 지어져 있어 코드를 이해하기 쉽습니다.
-// |- 총 발사, 재장전, 탄약 소진 등의 상태를 enum으로 정의하여 코드를 간결하게 작성하였습니다.
-// |- 총 발사 시 라인 렌더러를 이용하여 총알 궤적을 그리는 효과를 구현하였습니다.
-// |
-// |나쁜 점:
-// |- 총 발사 시 레이캐스트를 이용하여 충돌 검사를 하고 있지만, 레이캐스트의 범위가 고정되어 있어 적이 가까이 있을 때에도 충돌 검사가 제대로 이루어지지 않을 수 있습니다. 따라서 레이캐스트의 범위를 동적으로 조절하거나 다른 충돌 검사 방법을 사용하는 것이 좋을 것입니다.
-// |- 총 발사 시 총알 궤적을 그리는 효과를 구현하고 있지만, 총알이 맞은 지점에서 파티클 효과를 재생하는 등 더욱 다양한 효과를 추가할 수 있을 것입니다.
-// |
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GunController : MonoBehaviour
 {
@@ -30,13 +19,13 @@ public class GunController : MonoBehaviour
     [SerializeField] private float TimebetweenShot;
     [SerializeField] private float GunEffectTime;
     [SerializeField] private float ReloadTime;
-    [SerializeField] private int MaxAmmo;
+    [SerializeField] public int _maxAmmo;
     [SerializeField] private float Damage;
 
-    private LineRenderer line;
-    private bool CandShot = true;
+    public UnityEvent<int, int> OnChangeAmmo;
 
     State _gunState;
+    private LineRenderer line;
     private float _lastShot;
     private int _curAmmo;
     public int _CurAmmo
@@ -47,7 +36,7 @@ public class GunController : MonoBehaviour
         }
         set
         {
-            _curAmmo = value;
+            _curAmmo = Mathf.Clamp(value, 0, _maxAmmo);
             if (_curAmmo <= 0)
             {
                 //StopAllCoroutines();
@@ -57,7 +46,7 @@ public class GunController : MonoBehaviour
         }
     }
 
-    void Awake()
+    private void Awake()
     {
 
         GameObject.FindObjectOfType<PlayerInput>().OnShot += Shoot;
@@ -66,9 +55,10 @@ public class GunController : MonoBehaviour
 
         line = GetComponent<LineRenderer>();
 
-        _CurAmmo = MaxAmmo;
+        _CurAmmo = _maxAmmo;
         _gunState = State.idle;
 
+        //PlayerUI.Instance.SetAmmo(_CurAmmo, _maxAmmo);
     }
 
     // Update is called once per frame
@@ -82,29 +72,26 @@ public class GunController : MonoBehaviour
         Debug.Log("Reloading");
         StartCoroutine(Reloading());
     }
+
     private IEnumerator Reloading()
     {
         _gunState = State.Reloading;
         yield return new WaitForSeconds(ReloadTime);
-        _CurAmmo = MaxAmmo;
+        _CurAmmo = _maxAmmo;
         _gunState = State.idle;
-        CandShot = true;
-
+        OnChangeAmmo?.Invoke(_CurAmmo, _maxAmmo);
     }
 
-    private IEnumerator WaitShot()
-    {
-        //_gunState = State.Shot;
-        CandShot = false;
-        yield return new WaitForSeconds(TimebetweenShot);
-        //_gunState = State.idle;
-        CandShot = true;
-    }
 
     private void Shoot()
     {
         if (_gunState == State.idle && _lastShot + TimebetweenShot < Time.time)
         {
+
+
+            _CurAmmo--;
+            OnChangeAmmo?.Invoke(_CurAmmo, _maxAmmo);
+
             _lastShot = Time.time;
             Debug.Log("shoting!");
             //StartCoroutine("WaitShot");
@@ -142,7 +129,6 @@ public class GunController : MonoBehaviour
 
 
             StartCoroutine(ShotEffect(hitPos));
-            _CurAmmo--;
         }
     }
 

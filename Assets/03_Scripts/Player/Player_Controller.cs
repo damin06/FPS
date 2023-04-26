@@ -39,12 +39,12 @@ public class Player_Controller : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        Animtaion_Controll(playerInput.MoveInput.x, playerInput.MoveInput.z);
+
     }
 
     private void FixedUpdate()
     {
-        Movement();
+        //Movement();
         Rotation();
     }
 
@@ -90,10 +90,12 @@ public class Player_Controller : MonoBehaviour
         }
     }
 
-    private void Movement()
+    public void Movement(Vector3 MoveInput)
     {
-        ch.SimpleMove(playerInput.MoveInput * speed);
-        GetVelocity(playerInput.MoveInput);
+        ch.SimpleMove(MoveInput * speed);
+        GetVelocity(MoveInput);
+
+        Animtaion_Controll(MoveInput.x, MoveInput.z);
     }
 
 
