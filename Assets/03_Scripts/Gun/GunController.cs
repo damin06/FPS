@@ -22,6 +22,8 @@ public class GunController : MonoBehaviour
     [SerializeField] public int _maxAmmo;
     [SerializeField] private float Damage;
 
+    public UnityEvent OnShot;
+    public UnityEvent OnReload;
     public UnityEvent<int, int> OnChangeAmmo;
 
     State _gunState;
@@ -70,6 +72,7 @@ public class GunController : MonoBehaviour
     private void Reload()
     {
         Debug.Log("Reloading");
+        OnReload?.Invoke();
         StartCoroutine(Reloading());
     }
 
@@ -87,7 +90,7 @@ public class GunController : MonoBehaviour
     {
         if (_gunState == State.idle && _lastShot + TimebetweenShot < Time.time)
         {
-
+            OnShot?.Invoke();
 
             _CurAmmo--;
             OnChangeAmmo?.Invoke(_CurAmmo, _maxAmmo);
