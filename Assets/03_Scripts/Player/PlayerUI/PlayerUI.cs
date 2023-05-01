@@ -36,6 +36,11 @@ public class PlayerUI : MonoBehaviour
         _ammorTXT.text = $"{current} / {max}";
     }
 
+    public void SetAmmoReload()
+    {
+        _ammorTXT.text = "Reloading...";
+    }
+
     public void SetHpBar(float current, float max)
     {
         _hpBar.fillAmount = current / max;

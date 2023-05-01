@@ -5,10 +5,9 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
   m_Name: MetalSparks
-  m_Shader: {fileID: 210, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 211, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -86,7 +85,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 1
     - _InvFade: 3
-    - _LightingEnabled: 1
+    - _LightingEnabled: 0
     - _Metallic: 0
     - _Mode: 3
     - _OcclusionStrength: 1
@@ -107,4 +106,3 @@ Material:
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0, g: 0, b: 0, a: 1}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.5}
-  m_BuildTextureStacks: []
