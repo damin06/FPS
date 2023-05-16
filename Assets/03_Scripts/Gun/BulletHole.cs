@@ -36,6 +36,10 @@ public class BulletHole : MonoBehaviour
         if (parent.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             targetEffect = bloodHitEffect;
+            //BloodParticle _blood //
+        }
+        else
+        {
         }
         // if (target != null)
         // {

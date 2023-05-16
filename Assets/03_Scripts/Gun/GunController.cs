@@ -115,7 +115,7 @@ public class GunController : MonoBehaviour
                     //Gizmos.DrawRay(transform.position, transform.forward * ray.distance);
 
                     hitPos = ray.point;
-                    BulletHole.Instance.PlayHitEffect(ray.point, ray.normal, ray.transform);
+                    //BulletHole.Instance.PlayHitEffect(ray.point, ray.normal, ray.transform);
 
 
                     IDamage hitTarget = ray.collider.GetComponent<IDamage>();
@@ -124,6 +124,26 @@ public class GunController : MonoBehaviour
                         hitTarget.IDamage(Damage, ray.point, ray.normal);
                     }
                 }
+
+                if (ray.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+                {
+                    BloodParticle _blood = PoolManager.Instance.Pop("BloodParticle") as BloodParticle;
+
+                    _blood.transform.position = hitPos;
+                    _blood.transform.LookAt(ray.normal);
+
+                    if (ray.transform != null) _blood.transform.SetParent(ray.transform);
+                }
+                else
+                {
+                    BulletHoleParticle _bulletPar = PoolManager.Instance.Pop("BulletHoleParticle") as BulletHoleParticle;
+
+                    _bulletPar.transform.position = hitPos;
+                    _bulletPar.transform.LookAt(ray.normal);
+
+                    if (ray.transform != null) _bulletPar.transform.SetParent(ray.transform);
+                }
+
             }
             else
             {

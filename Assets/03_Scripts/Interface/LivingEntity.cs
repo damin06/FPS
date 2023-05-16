@@ -5,20 +5,20 @@ using UnityEngine.Events;
 
 public abstract class LivingEntity : MonoBehaviour, IDamage
 {
-    [SerializeField] private float _maxHP;
-    public float MaxHP
+    public UnityEvent<float, float> OnHealthChanged = null;
+    public UnityEvent OnDie = null;
+    public float _maxHP { get; protected set; }
+    public bool _isdead { get; protected set; }
+    private float _currentHP;
+    public float _CurrentHP
     {
-        get
-        {
-            return _maxHP;
-        }
+        get => _currentHP;
         protected set
         {
-            _maxHP = value;
+            _currentHP = Mathf.Clamp(_currentHP, 0, _maxHP);
+            _currentHP = value;
         }
     }
-    public float _currentHP { get; protected set; }
-    public bool _isdead { get; protected set; }
 
     protected virtual void OnEnable()
     {
@@ -33,22 +33,17 @@ public abstract class LivingEntity : MonoBehaviour, IDamage
         if (_isdead)
             return;
 
-        ChangeHP(Damage, false);
+        _currentHP -= Damage;
+        OnHealthChanged?.Invoke(_currentHP, _maxHP);
 
         if (_currentHP <= 0)
-            OnDie();
+            OnDeath();
     }
 
-    protected virtual void ChangeHP(float Damage, bool isFlus)
-    {
-        if (isFlus)
-            _currentHP += Damage;
-        else
-            _currentHP -= Damage;
-    }
 
-    protected virtual void OnDie()
+    protected virtual void OnDeath()
     {
         _isdead = true;
+        OnDie?.Invoke();
     }
 }
