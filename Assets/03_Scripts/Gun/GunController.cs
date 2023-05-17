@@ -96,7 +96,7 @@ public class GunController : MonoBehaviour
             OnChangeAmmo?.Invoke(_CurAmmo, _maxAmmo);
 
             _lastShot = Time.time;
-            Debug.Log("shoting!");
+            //Debug.Log("shoting!");
             //StartCoroutine("WaitShot");
 
             RaycastHit ray;
@@ -128,18 +128,16 @@ public class GunController : MonoBehaviour
                 if (ray.collider.gameObject.layer == LayerMask.NameToLayer("Enemy"))
                 {
                     BloodParticle _blood = PoolManager.Instance.Pop("BloodParticle") as BloodParticle;
-
-                    _blood.transform.position = hitPos;
-                    _blood.transform.LookAt(ray.normal);
+                    //_blood.transform.SetParent(null);
+                    _blood.transform.SetPositionAndRotation(ray.point, Quaternion.LookRotation(ray.normal));
 
                     if (ray.transform != null) _blood.transform.SetParent(ray.transform);
                 }
                 else
                 {
                     BulletHoleParticle _bulletPar = PoolManager.Instance.Pop("BulletHoleParticle") as BulletHoleParticle;
-
-                    _bulletPar.transform.position = hitPos;
-                    _bulletPar.transform.LookAt(ray.normal);
+                    //_bulletPar.transform.SetParent(null);
+                    _bulletPar.transform.SetPositionAndRotation(ray.point, Quaternion.LookRotation(ray.normal));
 
                     if (ray.transform != null) _bulletPar.transform.SetParent(ray.transform);
                 }

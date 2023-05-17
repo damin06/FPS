@@ -4807,6 +4807,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 505669658, guid: 4355c301cac37d54fb4891d42ec459cf, type: 3}
+      propertyPath: TimebetweenShot
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 505669658, guid: 4355c301cac37d54fb4891d42ec459cf, type: 3}
       propertyPath: OnReload.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1012146503}

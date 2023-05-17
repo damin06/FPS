@@ -9,15 +9,15 @@ public class BulletHoleParticle : ParticleManager
     protected override void Awake()
     {
         base.Awake();
-        _particles = GetComponentsInChildren<ParticleSystem>();
+        //vxc d_particles = GetComponentsInChildren<ParticleSystem>();
     }
 
     public override void Play()
     {
         base.Play();
-        foreach (ParticleSystem _par in _particles)
-        {
-            _par.Play();
-        }
+        // foreach (ParticleSystem _par in _particles)
+        // {
+        //     _par.Play();
+        // }
     }
 }
