@@ -9339,7 +9339,7 @@ GameObject:
   - component: {fileID: 246678670676896134}
   - component: {fileID: 3733897494258134340}
   m_Layer: 0
-  m_Name: BulletHoleParticle
+  m_Name: BulletHoleParticle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

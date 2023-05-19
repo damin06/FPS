@@ -135,7 +135,7 @@ public class GunController : MonoBehaviour
                 }
                 else
                 {
-                    BulletHoleParticle _bulletPar = PoolManager.Instance.Pop("BulletHoleParticle") as BulletHoleParticle;
+                    BulletHole2Particle _bulletPar = PoolManager.Instance.Pop("BulletHole2Particle") as BulletHole2Particle;
                     //_bulletPar.transform.SetParent(null);
                     _bulletPar.transform.SetPositionAndRotation(ray.point, Quaternion.LookRotation(ray.normal));
 
