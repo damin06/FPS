@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace EnemyState
+namespace NormalEnemyState
 {
     public class Idle : IState
     {
@@ -59,6 +59,21 @@ namespace EnemyState
         }
     }
 
+    public class Die : IState
+    {
+        public override void OnStateEnter(EnemyFSM _enemy)
+        {
+            throw new System.NotImplementedException();
+        }
 
+        public override void OnStateExit(EnemyFSM _enemy)
+        {
+            throw new System.NotImplementedException();
+        }
 
+        public override void OnStateUpdate(EnemyFSM _enemy)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

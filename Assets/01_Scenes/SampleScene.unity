@@ -2065,11 +2065,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4140043178361396, guid: f11597d739665a54992b8339873fd7bc, type: 3}
   m_PrefabInstance: {fileID: 1880013515}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &767843695 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 30943066853372319, guid: 4355c301cac37d54fb4891d42ec459cf, type: 3}
-  m_PrefabInstance: {fileID: 30323016028781157}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &785720168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4239986016271562, guid: a7062dc7a04d11c4bbc1e9c2f73dfa46, type: 3}
@@ -2079,11 +2074,6 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4616355247457826, guid: f11597d739665a54992b8339873fd7bc, type: 3}
   m_PrefabInstance: {fileID: 1880013515}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &818630010 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4968264157466278, guid: c2ab92584ea61e6449efbbf1366854f2, type: 3}
-  m_PrefabInstance: {fileID: 879211720}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &839810177 stripped
 Transform:
@@ -4293,16 +4283,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1947367114}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2c23167cf4d57641a7890492d0eac5d, type: 3}
+  m_Script: {fileID: 11500000, guid: 205f9b20d7d6e73418b971d73fd1f901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _followRange: 20.7
-  _attackRange: 8
-  _speed: 4
-  _shotTime: 1
-  _gunLight: {fileID: 1943860672}
-  _firePos: {fileID: 1947367117}
-  _player: {fileID: 767843695}
+  _state: 0
 --- !u!120 &1947367119
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -4401,36 +4385,6 @@ LineRenderer:
     generateLightingData: 1
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!114 &1947367120
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1947367114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10c64d32143efb04eac7a341f1d9eaa7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1947367121
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1947367114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55c4f98d63a97294fbf4802046e066e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RightHandWeight: 0
-  RightHandTarget: {fileID: 0}
-  LeftHandWeight: 0
-  LeftHandTarget: {fileID: 0}
-  weapon: {fileID: 818630010}
-  lookpos: {x: 0, y: 0, z: 0}
 --- !u!1001 &1957740963
 PrefabInstance:
   m_ObjectHideFlags: 0
