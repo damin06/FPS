@@ -47,7 +47,7 @@ public class NormalEnemy : PoolableMono
         _stateMachine.ChangeState(_states[(int)_state]);
     }
 
-    public void Transform(out Transform _target)
+    public void Transform(Transform _target)
     {
         Collider[] _cols = Physics.OverlapSphere(transform.position, float.MaxValue, _whatIsEnemy);
 
