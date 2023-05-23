@@ -2,76 +2,75 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace NormalEnemyState
+namespace NormalEnemyStates
 {
-    public class Idle : IState
+    public class Idle : State<NormalEnemy>
     {
-        public override void OnStateEnter(EnemyFSM _enemy)
+        public override void Enter(NormalEnemy __entity)
+        {
+
+        }
+
+        public override void Execute(NormalEnemy __entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void OnStateExit(EnemyFSM _enemy)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override void OnStateUpdate(EnemyFSM _enemy)
+        public override void Exit(NormalEnemy _entity)
         {
             throw new System.NotImplementedException();
         }
     }
 
-    public class Move : IState
+    public class Chase : State<NormalEnemy>
     {
-        public override void OnStateEnter(EnemyFSM _enemy)
+        public override void Enter(NormalEnemy _entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void OnStateExit(EnemyFSM _enemy)
+        public override void Execute(NormalEnemy _entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void OnStateUpdate(EnemyFSM _enemy)
+        public override void Exit(NormalEnemy _entity)
         {
             throw new System.NotImplementedException();
         }
     }
 
-    public class Attack : IState
+    public class Attack : State<NormalEnemy>
     {
-        public override void OnStateEnter(EnemyFSM _enemy)
-        {
-            throw new System.NotImplementedException();
-
-        }
-
-        public override void OnStateExit(EnemyFSM _enemy)
+        public override void Enter(NormalEnemy _entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void OnStateUpdate(EnemyFSM _enemy)
+        public override void Execute(NormalEnemy _entity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override void Exit(NormalEnemy _entity)
         {
             throw new System.NotImplementedException();
         }
     }
 
-    public class Die : IState
+    public class Die : State<NormalEnemy>
     {
-        public override void OnStateEnter(EnemyFSM _enemy)
+        public override void Enter(NormalEnemy _entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void OnStateExit(EnemyFSM _enemy)
+        public override void Execute(NormalEnemy _entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void OnStateUpdate(EnemyFSM _enemy)
+        public override void Exit(NormalEnemy _entity)
         {
             throw new System.NotImplementedException();
         }

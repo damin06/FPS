@@ -16,6 +16,7 @@ public class GunController : MonoBehaviour
     [Header("Reference")]
     [SerializeField] private ParticleSystem[] gunParticle;
     [SerializeField] private Transform FriePos;
+    [SerializeField] private float _maxDistance;
     [SerializeField] private float TimebetweenShot;
     [SerializeField] private float GunEffectTime;
     [SerializeField] private float ReloadTime;
@@ -107,7 +108,7 @@ public class GunController : MonoBehaviour
                 par.Play();
             }
 
-            if (Physics.Raycast(FriePos.position, FriePos.forward * offset.x, out ray, 50))
+            if (Physics.Raycast(FriePos.position, FriePos.forward * offset.x, out ray, _maxDistance))
             {
                 if (ray.collider)
                 {
@@ -145,7 +146,7 @@ public class GunController : MonoBehaviour
             }
             else
             {
-                hitPos = FriePos.position + FriePos.forward * 50;
+                hitPos = FriePos.position + FriePos.forward * _maxDistance;
             }
 
 
