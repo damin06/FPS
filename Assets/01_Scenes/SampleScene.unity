@@ -4682,7 +4682,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _navmesh: {fileID: 0}
-  _target: {fileID: 0}
+  _ani: {fileID: 0}
+  _moveSpeed: 5
+  _range: 0
+  _whatIsEnemy:
+    serializedVersion: 2
+    m_Bits: 256
+  _damage: 0
+  _timeToBtweenShot: 0
+  _maxAmmo: 0
 --- !u!120 &1947367119
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -5481,11 +5489,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4858739169938354569, guid: 65f83f2946e528545936e8ce004b6ed1, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000003070283
+      value: -0.000000011238014
       objectReference: {fileID: 0}
     - target: {fileID: 4858739169938354569, guid: 65f83f2946e528545936e8ce004b6ed1, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000009105853
+      value: 0.000000003332974
       objectReference: {fileID: 0}
     - target: {fileID: 4858739169938354569, guid: 65f83f2946e528545936e8ce004b6ed1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5667,11 +5675,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6208017285326110983, guid: a378be68c0b61224faac9af8b243f77d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000003070283
+      value: -0.000000011238014
       objectReference: {fileID: 0}
     - target: {fileID: 6208017285326110983, guid: a378be68c0b61224faac9af8b243f77d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000009105853
+      value: 0.000000003332974
       objectReference: {fileID: 0}
     - target: {fileID: 6208017285326110983, guid: a378be68c0b61224faac9af8b243f77d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

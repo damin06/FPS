@@ -10,13 +10,26 @@ public class NormalEnemy : PoolableMono
     private State<NormalEnemy>[] _states;
     private StateMachine<NormalEnemy> _stateMachine;
 
-    public EnemyState _curState { private set; get; }
 
-    [HideInInspector]
-    public NavMeshAgent _navmesh;
+    [HideInInspector] public NavMeshAgent _navmesh;
+    [HideInInspector] public Animator _ani;
+
+
+    public EnemyState _curState { private set; get; }
     public Transform _curTarget { private set; get; }
 
+
+    [Header("AI Setting")]
+    [Range(0.1f, 50f)][SerializeField] private float _moveSpeed;
+    [Range(0, 500)][Tooltip("0은 무한")][SerializeField] private float _range = 0;
     [SerializeField] private LayerMask _whatIsEnemy;
+
+    [Space]
+
+    [Header("Gun Setting")]
+    [Range(0.1f, 50f)] public float _damage;
+    [Range(0.01f, 10f)] public float _timeToBtweenShot;
+    [Range(1f, 100f)] public int _maxAmmo;
 
     public override void Reset()
     {
@@ -31,7 +44,11 @@ public class NormalEnemy : PoolableMono
     }
     private void Awake()
     {
+        Reset();
         _navmesh = GetComponent<NavMeshAgent>();
+        _ani = GetComponent<Animator>();
+
+        _navmesh.speed = _moveSpeed;
     }
 
     // Update is called once per frame
@@ -47,9 +64,10 @@ public class NormalEnemy : PoolableMono
         _stateMachine.ChangeState(_states[(int)_state]);
     }
 
-    public void Transform(Transform _target)
+    public void GetTarget()
     {
-        Collider[] _cols = Physics.OverlapSphere(transform.position, float.MaxValue, _whatIsEnemy);
+        Collider[] _cols = Physics.OverlapSphere(transform.position, _range == 0 ? Mathf.Infinity : _range, _whatIsEnemy);
+        Transform Target = transform;
 
         float minDistance = Mathf.Infinity;
 
@@ -60,8 +78,20 @@ public class NormalEnemy : PoolableMono
             if (distance < minDistance)
             {
                 minDistance = distance;
-                _target = _cols[i].transform;
+                Target = _cols[i].transform;
             }
         }
+        _curTarget = Target;
+    }
+
+    public Vector3 GetRandomPointOnNavMesh(Vector3 center, float distance)
+    {
+        Vector3 randomPos = Random.insideUnitSphere * distance + center;
+
+        NavMeshHit hit;
+
+        NavMesh.SamplePosition(randomPos, out hit, distance, NavMesh.AllAreas);
+
+        return hit.position;
     }
 }
