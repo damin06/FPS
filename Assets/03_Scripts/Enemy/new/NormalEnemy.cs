@@ -16,12 +16,20 @@ public class NormalEnemy : PoolableMono
 
 
     public EnemyState _curState { private set; get; }
-    public Transform _curTarget { private set; get; }
+    public Transform _curTarget;
+
+
+    public Transform CurrentTarget
+    {
+        set => _curTarget = value;
+        get => _curTarget;
+    }
 
 
     [Header("AI Setting")]
     [Range(0.1f, 50f)][SerializeField] private float _moveSpeed;
     [Range(0, 500)][Tooltip("0은 무한")][SerializeField] private float _range = 0;
+    [Range(1, 300)][Tooltip("플레이어와 적사이의 최대 거리")] public float _distance = 0;
     [SerializeField] private LayerMask _whatIsEnemy;
 
     [Space]
@@ -66,22 +74,23 @@ public class NormalEnemy : PoolableMono
 
     public void GetTarget()
     {
-        Collider[] _cols = Physics.OverlapSphere(transform.position, _range == 0 ? Mathf.Infinity : _range, _whatIsEnemy);
-        Transform Target = transform;
+        // Collider[] _cols = Physics.OverlapSphere(transform.position, _range == 0 ? Mathf.Infinity : _range, _whatIsEnemy);
+        // Transform Target = transform;
 
-        float minDistance = Mathf.Infinity;
+        // float minDistance = Mathf.Infinity;
 
-        for (int i = 0; i < _cols.Length; i++)
-        {
-            float distance = Vector3.Distance(transform.position, _cols[i].transform.position);
+        // for (int i = 0; i < _cols.Length; i++)
+        // {
+        //     float distance = Vector3.Distance(transform.position, _cols[i].transform.position);
 
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                Target = _cols[i].transform;
-            }
-        }
-        _curTarget = Target;
+        //     if (distance < minDistance)
+        //     {
+        //         minDistance = distance;
+        //         Target = _cols[i].transform;
+        //     }
+        // }
+        // _curTarget = Target;
+        _curTarget = GameObject.Find("Player").transform;
     }
 
     public Vector3 GetRandomPointOnNavMesh(Vector3 center, float distance)

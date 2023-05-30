@@ -14,10 +14,10 @@ namespace NormalEnemyStates
 
         public override void Execute(NormalEnemy _entity)
         {
-            if (_entity._curTarget != null && Vector3.Distance(_entity.transform.position, _entity._curTarget.transform.position) < 50)
+            if (_entity._curTarget != null)
                 _entity.ChangeState(EnemyState.chase);
-            else
-                _entity.GetTarget();
+
+            _entity.GetTarget();
         }
 
         public override void Exit(NormalEnemy _entity)
@@ -28,29 +28,28 @@ namespace NormalEnemyStates
 
     public class Chase : State<NormalEnemy>
     {
-        Vector3 pos;
         public override void Enter(NormalEnemy _entity)
         {
+            Debug.Log($"{GetType().ToString()} : Chase");
+
             if (_entity._curTarget != null)
-            {
-                pos = _entity.GetRandomPointOnNavMesh(_entity._curTarget.transform.position, 5f);
-                _entity._navmesh.SetDestination(pos);
-            }
+                _entity._navmesh.SetDestination(_entity.GetRandomPointOnNavMesh(_entity._curTarget.transform.position, 4.5f));
+
         }
 
         public override void Execute(NormalEnemy _entity)
         {
-            if (_entity._curTarget == null)
+
+            if (_entity._curTarget == null || Vector3.Distance(_entity._curTarget.transform.position, _entity.transform.position) > 10)
                 _entity.ChangeState(EnemyState.idle);
 
-
-            if (Vector3.Distance(pos, _entity.transform.position) < 0.5f)
+            if (_entity._navmesh.remainingDistance < 0.4f)
                 _entity.ChangeState(EnemyState.attack);
         }
 
         public override void Exit(NormalEnemy _entity)
         {
-
+            _entity._navmesh.ResetPath();
         }
     }
 
@@ -59,12 +58,12 @@ namespace NormalEnemyStates
         private float _lastShotTime;
         public override void Enter(NormalEnemy _entity)
         {
-
+            Debug.Log($"{GetType().ToString()} : Attack");
         }
 
         public override void Execute(NormalEnemy _entity)
         {
-            if (Vector3.Distance(_entity.transform.position, _entity._curTarget.transform.position) > 6)
+            if (Vector3.Distance(_entity.transform.position, _entity._curTarget.transform.position) > 7)
                 _entity.ChangeState(EnemyState.chase);
 
             if (_lastShotTime + _entity._timeToBtweenShot < Time.time)
@@ -84,7 +83,7 @@ namespace NormalEnemyStates
     {
         public override void Enter(NormalEnemy _entity)
         {
-
+            Debug.Log($"{GetType().ToString()} : Die");
         }
 
         public override void Execute(NormalEnemy _entity)
