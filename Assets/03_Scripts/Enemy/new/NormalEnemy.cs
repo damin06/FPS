@@ -39,6 +39,7 @@ public class NormalEnemy : PoolableMono
     [Range(0.01f, 10f)] public float _timeToBtweenShot;
     [Range(1f, 100f)] public int _maxAmmo;
 
+
     public override void Reset()
     {
         _states = new State<NormalEnemy>[4];
@@ -49,6 +50,7 @@ public class NormalEnemy : PoolableMono
 
         _stateMachine = new StateMachine<NormalEnemy>();
         _stateMachine.Setup(this, _states[(int)EnemyState.idle]);
+        _stateMachine.SetGlobalState(new NormalEnemyStates.globalState());
     }
     private void Awake()
     {
@@ -57,6 +59,8 @@ public class NormalEnemy : PoolableMono
         _ani = GetComponent<Animator>();
 
         _navmesh.speed = _moveSpeed;
+
+        _navmesh.updatePosition = false;
     }
 
     // Update is called once per frame
@@ -102,5 +106,10 @@ public class NormalEnemy : PoolableMono
         NavMesh.SamplePosition(randomPos, out hit, distance, NavMesh.AllAreas);
 
         return hit.position;
+    }
+
+    private void OnAnimatorMove()
+    {
+        transform.position = _navmesh.nextPosition;
     }
 }
