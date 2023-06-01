@@ -71,6 +71,10 @@ namespace NormalEnemyStates
                 _lastShotTime = Time.time;
                 Debug.Log("ATTACK");
             }
+
+            Vector3 dir = _entity._curTarget.transform.position - _entity.transform.position;
+
+            _entity.transform.rotation = Quaternion.Lerp(_entity.transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * _entity._navmesh.acceleration);
         }
 
         public override void Exit(NormalEnemy _entity)

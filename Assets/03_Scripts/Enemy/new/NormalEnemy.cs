@@ -16,6 +16,7 @@ public class NormalEnemy : PoolableMono
 
 
     public EnemyState _curState { private set; get; }
+    [HideInInspector]
     public Transform _curTarget;
 
 
