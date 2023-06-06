@@ -70,6 +70,9 @@ namespace NormalEnemyStates
             {
                 _lastShotTime = Time.time;
                 Debug.Log("ATTACK");
+                var _blood = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
+
+                _blood.ShootBullet(_entity._shotPoint);
             }
 
             Vector3 dir = _entity._curTarget.transform.position - _entity.transform.position;

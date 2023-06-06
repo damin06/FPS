@@ -7,7 +7,7 @@ public abstract class LivingEntity : MonoBehaviour, IDamage
 {
     public UnityEvent<float, float> OnHealthChanged = null;
     public UnityEvent OnDie = null;
-    public float _maxHP { get; protected set; }
+    [SerializeField] public float _maxHP;
     public bool _isdead { get; protected set; }
     private float _currentHP;
     public float _CurrentHP

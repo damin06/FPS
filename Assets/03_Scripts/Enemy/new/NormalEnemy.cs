@@ -40,6 +40,9 @@ public class NormalEnemy : PoolableMono
     [Range(0.01f, 10f)] public float _timeToBtweenShot;
     [Range(1f, 100f)] public int _maxAmmo;
 
+    [Space]
+
+    public Transform _shotPoint;
 
     public override void Reset()
     {
@@ -112,5 +115,10 @@ public class NormalEnemy : PoolableMono
     private void OnAnimatorMove()
     {
         transform.position = _navmesh.nextPosition;
+    }
+
+    public void Push()
+    {
+        PoolManager.Instance.Push(this);
     }
 }

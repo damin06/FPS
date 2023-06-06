@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBullet : PoolableMono
 {
     [SerializeField] private float _damage;
-    public Rigidbody _rb;
+    private Rigidbody _rb;
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
@@ -35,6 +35,16 @@ public class EnemyBullet : PoolableMono
 
     public override void Reset()
     {
+        Invoke("Pool", 4f);
+    }
 
+    private void Pool()
+    {
+        PoolManager.Instance.Push(this);
+    }
+
+    public void ShootBullet(Transform _shotPoint)
+    {
+        _rb.AddForce(_shotPoint.forward * 4f, ForceMode.Impulse);
     }
 }
