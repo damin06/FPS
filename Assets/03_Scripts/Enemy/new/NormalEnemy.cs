@@ -121,4 +121,12 @@ public class NormalEnemy : PoolableMono
     {
         PoolManager.Instance.Push(this);
     }
+
+
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(_shotPoint.transform.position, _shotPoint.transform.rotation * Vector3.forward * 30f);
+    }
 }

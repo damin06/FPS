@@ -70,9 +70,37 @@ namespace NormalEnemyStates
             {
                 _lastShotTime = Time.time;
                 Debug.Log("ATTACK");
-                var _blood = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
 
-                _blood.ShootBullet(_entity._shotPoint);
+                // RaycastHit hit;
+                // if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.forward, out hit, int.MaxValue))
+                // {
+                //     var _blood = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
+
+                //     _blood.transform.position = _entity._shotPoint.transform.position;
+                //     //_blood.transform.SetPositionAndRotation(_entity._shotPoint.transform.position, _entity._shotPoint.rotation);
+
+                //     _blood.GetComponent<Rigidbody>().AddForce(_entity._shotPoint.forward * 5, ForceMode.Impulse);
+
+                // }
+
+                //_blood.GetComponent<EnemyBullet>().ShootBullet(_entity.transform);
+
+                //Ray ray = _entity._shotPoint.position;
+                RaycastHit hit;
+
+                Vector3 targetPoint = Vector3.zero;
+                if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.forward, out hit, int.MaxValue))
+                    targetPoint = hit.point;
+                // else
+                //     targetPoint = ray.GetPoint(75);
+
+                Vector3 directionWithoutSpread = targetPoint - _entity._shotPoint.position;
+                var _blood = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
+                _blood.transform.position = _entity._shotPoint.position;
+
+                _blood.transform.forward = directionWithoutSpread.normalized;
+
+                _blood.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * 5, ForceMode.Impulse);
             }
 
             Vector3 dir = _entity._curTarget.transform.position - _entity.transform.position;
@@ -82,6 +110,12 @@ namespace NormalEnemyStates
 
         public override void Exit(NormalEnemy _entity)
         {
+
+        }
+
+        private void shot()
+        {
+
 
         }
     }
