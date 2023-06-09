@@ -19,7 +19,7 @@ public class EnemyBullet : PoolableMono
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
             IDamage _hit = other.gameObject.GetComponent<IDamage>();
 
@@ -31,10 +31,14 @@ public class EnemyBullet : PoolableMono
                 _hit.IDamage(_damage, collisionPoint, collisionNormal);
             }
         }
+
+        Pool();
     }
 
     public override void Reset()
     {
+        _rb.velocity = Vector3.zero;
+        //_rb.AddForce(Vector3.forward, ForceMode.Impulse);
         Invoke("Pool", 4f);
     }
 
@@ -45,6 +49,6 @@ public class EnemyBullet : PoolableMono
 
     public void ShootBullet(Transform _shotPoint)
     {
-        _rb.AddForce(_shotPoint.forward * 4f, ForceMode.Impulse);
+        _rb.AddForce(_shotPoint.forward, ForceMode.Impulse);
     }
 }

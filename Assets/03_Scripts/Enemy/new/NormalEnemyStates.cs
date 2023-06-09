@@ -89,22 +89,25 @@ namespace NormalEnemyStates
                 RaycastHit hit;
 
                 Vector3 targetPoint = Vector3.zero;
-                if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.forward, out hit, int.MaxValue))
+                if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.transform.rotation * Vector3.forward, out hit, int.MaxValue))
+                {
+                    Debug.Log(hit.transform.name);
                     targetPoint = hit.point;
+                    Vector3 direction = _entity._shotPoint.position - targetPoint;
+                    var _blood = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
+                    _blood.transform.SetPositionAndRotation(_entity._shotPoint.position, _entity._shotPoint.rotation);
+
+                    //_blood.transform.forward = direction.normalized;
+
+                    _blood.GetComponent<Rigidbody>().AddForce(hit.point, ForceMode.Impulse);
+
+                }
                 // else
                 //     targetPoint = ray.GetPoint(75);
 
-                Vector3 directionWithoutSpread = targetPoint - _entity._shotPoint.position;
-                var _blood = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
-                _blood.transform.position = _entity._shotPoint.position;
 
-                _blood.transform.forward = directionWithoutSpread.normalized;
-
-                _blood.GetComponent<Rigidbody>().AddForce(directionWithoutSpread.normalized * 5, ForceMode.Impulse);
             }
-
             Vector3 dir = _entity._curTarget.transform.position - _entity.transform.position;
-
             _entity.transform.rotation = Quaternion.Lerp(_entity.transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * _entity._navmesh.acceleration);
         }
 
