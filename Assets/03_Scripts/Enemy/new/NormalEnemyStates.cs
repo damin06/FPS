@@ -89,23 +89,31 @@ namespace NormalEnemyStates
                 RaycastHit hit;
 
                 Vector3 targetPoint = Vector3.zero;
-                if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.transform.rotation * Vector3.forward, out hit, int.MaxValue))
+                if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.transform.rotation * Vector3.forward, out hit, 15))
                 {
                     Debug.Log(hit.transform.name);
                     targetPoint = hit.point;
-                    Vector3 direction = _entity._shotPoint.position - targetPoint;
-                    var _blood = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
-                    _blood.transform.SetPositionAndRotation(_entity._shotPoint.position, _entity._shotPoint.rotation);
 
-                    //_blood.transform.forward = direction.normalized;
+                    CoroutineHelper.StartCoroutine(shot(_entity));
+                    // Vector3 direction = _entity._shotPoint.position - targetPoint;
+                    // var _blood = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
+                    // //_blood.transform.SetPositionAndRotation(_entity._shotPoint.position, _entity._shotPoint.rotation);
+                    // _blood.transform.position = _entity._shotPoint.position;
 
-                    _blood.GetComponent<Rigidbody>().AddForce(hit.point, ForceMode.Impulse);
+                    // //_blood.transform.forward = direction.normalized;
+
+                    // _blood.GetComponent<Rigidbody>().AddForce(_entity._curTarget.position.normalized, ForceMode.Impulse);
+                    if (hit.transform.name == "Player")
+                    {
+                        IDamage _hit = hit.transform.GetComponent<IDamage>();
+
+                        if (_hit != null)
+                            _hit.IDamage(_entity._damage, hit.point, hit.normal);
+                    }
 
                 }
                 // else
                 //     targetPoint = ray.GetPoint(75);
-
-
             }
             Vector3 dir = _entity._curTarget.transform.position - _entity.transform.position;
             _entity.transform.rotation = Quaternion.Lerp(_entity.transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * _entity._navmesh.acceleration);
@@ -116,10 +124,14 @@ namespace NormalEnemyStates
 
         }
 
-        private void shot()
+
+        IEnumerator shot(NormalEnemy _entity)
         {
-
-
+            _entity._line.enabled = true;
+            _entity._line.SetPosition(0, _entity._shotPoint.position);
+            _entity._line.SetPosition(1, _entity._shotPoint.position);
+            yield return new WaitForSeconds(0.15f);
+            _entity._line.enabled = false;
         }
     }
 

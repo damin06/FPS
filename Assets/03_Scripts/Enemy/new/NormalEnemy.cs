@@ -11,6 +11,7 @@ public class NormalEnemy : PoolableMono
     private StateMachine<NormalEnemy> _stateMachine;
 
 
+    [HideInInspector] public LineRenderer _line;
     [HideInInspector] public NavMeshAgent _navmesh;
     [HideInInspector] public Animator _ani;
 
@@ -61,6 +62,7 @@ public class NormalEnemy : PoolableMono
         Reset();
         _navmesh = GetComponent<NavMeshAgent>();
         _ani = GetComponent<Animator>();
+        _line = GetComponent<LineRenderer>();
 
         _navmesh.speed = _moveSpeed;
 

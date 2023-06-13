@@ -37,7 +37,7 @@ public class EnemyBullet : PoolableMono
 
     public override void Reset()
     {
-        _rb.velocity = Vector3.zero;
+        //_rb.velocity = Vector3.zero;
         //_rb.AddForce(Vector3.forward, ForceMode.Impulse);
         Invoke("Pool", 4f);
     }
@@ -49,6 +49,6 @@ public class EnemyBullet : PoolableMono
 
     public void ShootBullet(Transform _shotPoint)
     {
-        _rb.AddForce(_shotPoint.forward, ForceMode.Impulse);
+        _rb.AddForce(_shotPoint.forward * 4f, ForceMode.Impulse);
     }
 }
