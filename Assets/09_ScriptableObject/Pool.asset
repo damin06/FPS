@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lis:
   - prefab: {fileID: 2295783007768633285, guid: 08161f98e95850049895e7d0d056bdbd, type: 3}
-    poolCount: 15
+    poolCount: 55
   - prefab: {fileID: 1155749241663661846, guid: 4edabb1c0dde62743b137378c7d22980, type: 3}
-    poolCount: 45
-  - prefab: {fileID: 387197588993566904, guid: 3eda0d8cbca562c45b63e1df93c14cc5, type: 3}
-    poolCount: 45
+    poolCount: 55
+  - prefab: {fileID: 1555587484151671437, guid: 9b853c4fc1eb9cc40b8ea324499567b9, type: 3}
+    poolCount: 100

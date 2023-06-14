@@ -32,16 +32,22 @@ namespace NormalEnemyStates
         {
             Debug.Log($"{GetType().ToString()} : Chase");
 
+            _entity._navmesh.ResetPath();
+
             if (_entity._curTarget != null)
-                _entity._navmesh.SetDestination(_entity.GetRandomPointOnNavMesh(_entity._curTarget.transform.position, 4.5f));
+                _entity._navmesh.SetDestination(_entity.GetRandomPointOnNavMesh(_entity._curTarget.transform.position, 7));
 
         }
 
         public override void Execute(NormalEnemy _entity)
         {
 
-            if (_entity._curTarget == null || Vector3.Distance(_entity._curTarget.transform.position, _entity.transform.position) > 10)
+            // if (_entity._curTarget == null || Vector3.Distance(_entity._curTarget.transform.position, _entity.transform.position) > 14)
+            //     _entity.ChangeState(EnemyState.idle);
+
+            if (Vector3.Distance(_entity.transform.position, _entity._curTarget.transform.position) > 20)
                 _entity.ChangeState(EnemyState.idle);
+
 
             if (_entity._navmesh.remainingDistance < 0.4f)
                 _entity.ChangeState(EnemyState.attack);
@@ -63,7 +69,7 @@ namespace NormalEnemyStates
 
         public override void Execute(NormalEnemy _entity)
         {
-            if (Vector3.Distance(_entity.transform.position, _entity._curTarget.transform.position) > 7)
+            if (Vector3.Distance(_entity.transform.position, _entity._curTarget.transform.position) > 10)
                 _entity.ChangeState(EnemyState.chase);
 
             if (_lastShotTime + _entity._timeToBtweenShot < Time.time)
@@ -87,14 +93,25 @@ namespace NormalEnemyStates
 
                 //Ray ray = _entity._shotPoint.position;
                 RaycastHit hit;
+                int rand;
 
                 Vector3 targetPoint = Vector3.zero;
                 if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.transform.rotation * Vector3.forward, out hit, 15))
                 {
+                    rand = Random.Range(0, 4);
+                    if (rand > 0)
+                    {
+                        float x = Random.Range(-0.8f, 0.8f);
+
+                        Vector3 directionWithoutSpread = hit.point;
+                        Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, _entity._shotPoint.position.y, 0);
+                        CoroutineHelper.StartCoroutine(shot(_entity, directionWithSpread));
+                        return;
+                    }
+
+                    CoroutineHelper.StartCoroutine(shot(_entity, hit.point));
                     Debug.Log(hit.transform.name);
                     targetPoint = hit.point;
-
-                    CoroutineHelper.StartCoroutine(shot(_entity));
                     // Vector3 direction = _entity._shotPoint.position - targetPoint;
                     // var _blood = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
                     // //_blood.transform.SetPositionAndRotation(_entity._shotPoint.position, _entity._shotPoint.rotation);
@@ -125,12 +142,12 @@ namespace NormalEnemyStates
         }
 
 
-        IEnumerator shot(NormalEnemy _entity)
+        IEnumerator shot(NormalEnemy _entity, Vector3 hitpos)
         {
             _entity._line.enabled = true;
             _entity._line.SetPosition(0, _entity._shotPoint.position);
-            _entity._line.SetPosition(1, _entity._shotPoint.position);
-            yield return new WaitForSeconds(0.15f);
+            _entity._line.SetPosition(1, hitpos);
+            yield return new WaitForSeconds(0.1f);
             _entity._line.enabled = false;
         }
     }
