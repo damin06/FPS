@@ -8,7 +8,7 @@ namespace NormalEnemyStates
     {
         public override void Enter(NormalEnemy _entity)
         {
-            //Debug.Log($"{GetType().ToString()} : Idle");
+            Debug.Log($"{GetType().ToString()} : Idle");
             _entity.GetTarget();
         }
 
@@ -30,7 +30,7 @@ namespace NormalEnemyStates
     {
         public override void Enter(NormalEnemy _entity)
         {
-            //Debug.Log($"{GetType().ToString()} : Chase");
+            Debug.Log($"{GetType().ToString()} : Chase");
 
             //_entity._navmesh.ResetPath();
 
@@ -44,8 +44,8 @@ namespace NormalEnemyStates
             // if (_entity._curTarget == null || Vector3.Distance(_entity._curTarget.transform.position, _entity.transform.position) > 14)
             //     _entity.ChangeState(EnemyState.idle);
 
-            if (Vector3.Distance(_entity.transform.position, _entity._curTarget.transform.position) > 20)
-                _entity.ChangeState(EnemyState.idle);
+            // if (Vector3.Distance(_entity.transform.position, _entity._curTarget.transform.position) > 20)
+            //     _entity.ChangeState(EnemyState.idle);
 
 
             if (_entity._navmesh.remainingDistance < 0.2f)
@@ -63,13 +63,17 @@ namespace NormalEnemyStates
         private float _lastShotTime;
         public override void Enter(NormalEnemy _entity)
         {
-            //Debug.Log($"{GetType().ToString()} : Attack");
+            _entity._navmesh.ResetPath();
+            Debug.Log($"{GetType().ToString()} : Attack");
         }
 
         public override void Execute(NormalEnemy _entity)
         {
             if (Vector3.Distance(_entity.transform.position, _entity._curTarget.transform.position) > 10)
-                _entity.ChangeState(EnemyState.idle);
+            {
+                _entity.ChangeState(EnemyState.chase);
+
+            }
 
             if (_lastShotTime + _entity._timeToBtweenShot < Time.time)
             {
@@ -109,7 +113,7 @@ namespace NormalEnemyStates
                     }
 
                     CoroutineHelper.StartCoroutine(shot(_entity, hit.point));
-                    Debug.Log(hit.transform.name);
+                    //Debug.Log(hit.transform.name);
                     targetPoint = hit.point;
                     // Vector3 direction = _entity._shotPoint.position - targetPoint;
                     // var _blood = PoolManager.Instance.Pop("EnemyBullet") as EnemyBullet;
@@ -139,7 +143,6 @@ namespace NormalEnemyStates
         {
 
         }
-
 
         IEnumerator shot(NormalEnemy _entity, Vector3 hitpos)
         {

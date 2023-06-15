@@ -132,13 +132,13 @@ public class NormalEnemy : PoolableMono
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(_shotPoint.transform.position, _shotPoint.transform.rotation * Vector3.forward * 30f);
+        Gizmos.DrawRay(_shotPoint.transform.position, _shotPoint.transform.rotation * Vector3.forward * 15f);
     }
 
     public int GetRandomSign()
     {
         int a = Random.Range(0, 2);
-        return a == 0 ? -1 : 1;
+        return a > 0 ? -1 : 1;
     }
 
     private Vector3 GetRandomPlayerPos()
