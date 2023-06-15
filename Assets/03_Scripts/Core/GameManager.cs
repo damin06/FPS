@@ -22,6 +22,10 @@ public class GameManager : MonoBehaviour
 
         MakePool();
 
+    }
+
+    private void Start()
+    {
         StartCoroutine(SpawnEnemy());
     }
 
@@ -42,7 +46,8 @@ public class GameManager : MonoBehaviour
 
             NormalEnemy enemy = PoolManager.Instance.Pop("NormalEnemy") as NormalEnemy;
             //enemy.transform.position = GetRandomPointOnNavMesh(GetRandomPlayerPos(), 5);
-            enemy.transform.position = _player.transform.position;
+            //enemy.transform.position = _player.transform.position;
+            //enemy.transform.position = Vector3.zero;
 
             yield return new WaitForSeconds(2.5f);
         }
@@ -50,8 +55,8 @@ public class GameManager : MonoBehaviour
 
     private Vector3 GetRandomPlayerPos()
     {
-        float x = Random.Range(16, 20) * GetRandomSign();
-        float z = Random.Range(16, 20) * GetRandomSign();
+        float x = Random.Range(12, 15) * GetRandomSign();
+        float z = Random.Range(12, 15) * GetRandomSign();
 
         return _player.transform.position + new Vector3(x, 0, z);
     }

@@ -8,7 +8,7 @@ namespace NormalEnemyStates
     {
         public override void Enter(NormalEnemy _entity)
         {
-            Debug.Log($"{GetType().ToString()} : Idle");
+            //Debug.Log($"{GetType().ToString()} : Idle");
             _entity.GetTarget();
         }
 
@@ -30,13 +30,12 @@ namespace NormalEnemyStates
     {
         public override void Enter(NormalEnemy _entity)
         {
-            Debug.Log($"{GetType().ToString()} : Chase");
+            //Debug.Log($"{GetType().ToString()} : Chase");
 
-            _entity._navmesh.ResetPath();
+            //_entity._navmesh.ResetPath();
 
             if (_entity._curTarget != null)
-                _entity._navmesh.SetDestination(_entity.GetRandomPointOnNavMesh(_entity._curTarget.transform.position, 7));
-
+                _entity._navmesh.SetDestination(_entity.GetRandomPointOnNavMesh(_entity._curTarget.transform.position, 5));
         }
 
         public override void Execute(NormalEnemy _entity)
@@ -49,7 +48,7 @@ namespace NormalEnemyStates
                 _entity.ChangeState(EnemyState.idle);
 
 
-            if (_entity._navmesh.remainingDistance < 0.4f)
+            if (_entity._navmesh.remainingDistance < 0.2f)
                 _entity.ChangeState(EnemyState.attack);
         }
 
@@ -64,13 +63,13 @@ namespace NormalEnemyStates
         private float _lastShotTime;
         public override void Enter(NormalEnemy _entity)
         {
-            Debug.Log($"{GetType().ToString()} : Attack");
+            //Debug.Log($"{GetType().ToString()} : Attack");
         }
 
         public override void Execute(NormalEnemy _entity)
         {
             if (Vector3.Distance(_entity.transform.position, _entity._curTarget.transform.position) > 10)
-                _entity.ChangeState(EnemyState.chase);
+                _entity.ChangeState(EnemyState.idle);
 
             if (_lastShotTime + _entity._timeToBtweenShot < Time.time)
             {
@@ -98,8 +97,8 @@ namespace NormalEnemyStates
                 Vector3 targetPoint = Vector3.zero;
                 if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.transform.rotation * Vector3.forward, out hit, 15))
                 {
-                    rand = Random.Range(0, 4);
-                    if (rand > 0)
+                    rand = Random.Range(0, 5);
+                    if (rand > 1)
                     {
                         float x = Random.Range(-0.8f, 0.8f);
 
@@ -156,7 +155,7 @@ namespace NormalEnemyStates
     {
         public override void Enter(NormalEnemy _entity)
         {
-            Debug.Log($"{GetType().ToString()} : Die");
+            //Debug.Log($"{GetType().ToString()} : Die");
         }
 
         public override void Execute(NormalEnemy _entity)

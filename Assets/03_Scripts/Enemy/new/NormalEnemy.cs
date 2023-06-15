@@ -47,6 +47,13 @@ public class NormalEnemy : PoolableMono
 
     public override void Reset()
     {
+        transform.position = GetRandomPointOnNavMesh(_curTarget.position, 5);
+        ChangeState(EnemyState.idle);
+    }
+    private void Awake()
+    {
+        GetTarget();
+
         _states = new State<NormalEnemy>[4];
         _states[(int)EnemyState.idle] = new NormalEnemyStates.Idle();
         _states[(int)EnemyState.chase] = new NormalEnemyStates.Chase();
@@ -56,9 +63,7 @@ public class NormalEnemy : PoolableMono
         _stateMachine = new StateMachine<NormalEnemy>();
         _stateMachine.Setup(this, _states[(int)EnemyState.idle]);
         _stateMachine.SetGlobalState(new NormalEnemyStates.globalState());
-    }
-    private void Awake()
-    {
+
         Reset();
         _navmesh = GetComponent<NavMeshAgent>();
         _ani = GetComponent<Animator>();
@@ -124,11 +129,23 @@ public class NormalEnemy : PoolableMono
         PoolManager.Instance.Push(this);
     }
 
-
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(_shotPoint.transform.position, _shotPoint.transform.rotation * Vector3.forward * 30f);
+    }
+
+    public int GetRandomSign()
+    {
+        int a = Random.Range(0, 2);
+        return a == 0 ? -1 : 1;
+    }
+
+    private Vector3 GetRandomPlayerPos()
+    {
+        float x = Random.Range(9, 12) * GetRandomSign();
+        float z = Random.Range(9, 12) * GetRandomSign();
+
+        return _curTarget.transform.position + new Vector3(x, 0, z);
     }
 }
