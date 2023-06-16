@@ -86,7 +86,9 @@ public class Player_Controller : MonoBehaviour
             var direction = position - transform.position;
             direction.y = 0;
 
-            transform.forward = direction;
+            //transform.forward = direction;
+            Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);
+            transform.rotation = Quaternion.Lerp(transform.rotation, toRotation, RotateSpeed * Time.deltaTime);
         }
     }
 
@@ -143,4 +145,15 @@ public class Player_Controller : MonoBehaviour
         ani.SetFloat("velocity", velocity);
     }
 
+    public void OnRagdoll()
+    {
+        Rigidbody[] _rbs = GetComponentsInChildren<Rigidbody>();
+        Collider[] _cols = GetComponentsInChildren<Collider>();
+
+        foreach (Rigidbody r in _rbs)
+            r.isKinematic = false;
+
+        foreach (Collider c in _cols)
+            c.enabled = true;
+    }
 }

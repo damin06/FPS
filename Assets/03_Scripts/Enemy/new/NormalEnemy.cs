@@ -47,7 +47,7 @@ public class NormalEnemy : PoolableMono
 
     public override void Reset()
     {
-        transform.position = GetRandomPointOnNavMesh(_curTarget.position, 5);
+        transform.position = GetRandomPointOnNavMesh(GetRandomPlayerPos(), 5);
         ChangeState(EnemyState.idle);
     }
     private void Awake()
