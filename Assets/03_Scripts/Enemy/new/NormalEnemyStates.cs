@@ -78,7 +78,7 @@ namespace NormalEnemyStates
             if (_lastShotTime + _entity._timeToBtweenShot < Time.time)
             {
                 _lastShotTime = Time.time;
-                _entity._auido.PlayerClipWithVariablePitch("fire");
+                Debug.Log("ATTACK");
 
                 // RaycastHit hit;
                 // if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.forward, out hit, int.MaxValue))

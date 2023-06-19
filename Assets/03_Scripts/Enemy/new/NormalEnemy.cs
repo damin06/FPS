@@ -14,7 +14,7 @@ public class NormalEnemy : PoolableMono
     [HideInInspector] public LineRenderer _line;
     [HideInInspector] public NavMeshAgent _navmesh;
     [HideInInspector] public Animator _ani;
-    public AudioPlayer _auido;
+
 
     public EnemyState _curState { private set; get; }
     [HideInInspector]
