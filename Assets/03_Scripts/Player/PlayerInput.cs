@@ -46,6 +46,6 @@ public class PlayerInput : MonoBehaviour
         float x = Input.GetAxisRaw("Horizontal");
         float z = Input.GetAxisRaw("Vertical");
 
-        OnMove?.Invoke(new Vector3(x, 0, z));
+        OnMove?.Invoke(new Vector3(z, 0, -x));
     }
 }

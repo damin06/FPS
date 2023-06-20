@@ -79,7 +79,7 @@ namespace NormalEnemyStates
             {
                 _lastShotTime = Time.time;
                 Debug.Log("ATTACK");
-
+                _entity._audio.PlayerClipWithVariablePitch("fire");
                 // RaycastHit hit;
                 // if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.forward, out hit, int.MaxValue))
                 // {
@@ -101,7 +101,7 @@ namespace NormalEnemyStates
                 Vector3 targetPoint = Vector3.zero;
                 if (Physics.Raycast(_entity._shotPoint.transform.position, _entity._shotPoint.transform.rotation * Vector3.forward, out hit, 15))
                 {
-                    rand = Random.Range(0, 5);
+                    rand = Random.Range(0, 4);
                     if (rand > 1)
                     {
                         float x = Random.Range(-0.8f, 0.8f);

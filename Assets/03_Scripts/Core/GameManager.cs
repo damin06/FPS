@@ -4,13 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
+using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] private PollingListSO _poolingList;
     [SerializeField] private GameObject _player;
-
+    [SerializeField] private GameObject _img;
+    [SerializeField] private TextMeshProUGUI _tmpro;
+    [SerializeField] private TextMeshProUGUI _endtmpro;
+    private float currentTime;
 
     private void Awake()
     {
@@ -26,12 +32,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(SpawnEnemy());
+
     }
 
     private void Update()
     {
-
+        currentTime += Time.deltaTime;
+        _tmpro.text = currentTime.ToString("F2");
     }
 
     private IEnumerator SpawnEnemy()
@@ -84,5 +91,26 @@ public class GameManager : MonoBehaviour
         PoolManager.Instance = new PoolManager(transform);
 
         _poolingList.lis.ForEach(p => PoolManager.Instance.CreatePool(p.prefab, p.poolCount));
+    }
+
+    public void RestartSceen()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void OnEndUI()
+    {
+        Invoke("aaa", 1);
+    }
+
+    public void aaa()
+    {
+        _img.SetActive(true);
+        _endtmpro.text = currentTime.ToString("F2");
+    }
+
+    public void ONSTArTSpawnEnemy()
+    {
+        StartCoroutine(SpawnEnemy());
     }
 }

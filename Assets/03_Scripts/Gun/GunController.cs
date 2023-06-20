@@ -1,3 +1,4 @@
+using System.Security.Cryptography.X509Certificates;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,7 @@ public class GunController : MonoBehaviour
     [SerializeField] private float ReloadTime;
     [SerializeField] public int _maxAmmo;
     [SerializeField] private float Damage;
+    public bool cnashot = true;
 
     public UnityEvent OnShot;
     public UnityEvent OnReload;
@@ -72,6 +74,9 @@ public class GunController : MonoBehaviour
 
     private void Reload()
     {
+        if (!cnashot)
+            return;
+
         Debug.Log("Reloading");
         OnReload?.Invoke();
         StartCoroutine(Reloading());
@@ -86,9 +91,17 @@ public class GunController : MonoBehaviour
         OnChangeAmmo?.Invoke(_CurAmmo, _maxAmmo);
     }
 
+    public void Stop()
+    {
+        StopAllCoroutines();
+    }
+
 
     private void Shoot()
     {
+        if (!cnashot)
+            return;
+
         if (_gunState == State.idle && _lastShot + TimebetweenShot < Time.time)
         {
             OnShot?.Invoke();
@@ -156,6 +169,9 @@ public class GunController : MonoBehaviour
 
     private IEnumerator ShotEffect(Vector3 hitPos)
     {
+        if (!cnashot)
+            yield return null;
+
         line.enabled = true;
         line.SetPosition(0, FriePos.position);
         line.SetPosition(1, hitPos);
@@ -163,5 +179,15 @@ public class GunController : MonoBehaviour
         yield return new WaitForSeconds(GunEffectTime);
 
         line.enabled = false;
+    }
+
+    void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    public void Dontshot()
+    {
+        cnashot = false;
     }
 }

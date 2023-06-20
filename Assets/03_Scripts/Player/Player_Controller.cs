@@ -29,6 +29,7 @@ public class Player_Controller : MonoBehaviour
 
     private void Start()
     {
+        OffRagdoll();
         playerInput = GetComponent<PlayerInput>();
         rb = GetComponent<Rigidbody>();
         ani = GetComponent<Animator>();
@@ -155,5 +156,17 @@ public class Player_Controller : MonoBehaviour
 
         foreach (Collider c in _cols)
             c.enabled = true;
+    }
+
+    public void OffRagdoll()
+    {
+        Rigidbody[] _rbs = GetComponentsInChildren<Rigidbody>();
+        Collider[] _cols = GetComponentsInChildren<Collider>();
+
+        foreach (Rigidbody r in _rbs)
+            r.isKinematic = true;
+
+        foreach (Collider c in _cols)
+            c.enabled = false;
     }
 }

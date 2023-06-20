@@ -14,6 +14,7 @@ public class NormalEnemy : PoolableMono
     [HideInInspector] public LineRenderer _line;
     [HideInInspector] public NavMeshAgent _navmesh;
     [HideInInspector] public Animator _ani;
+    [HideInInspector] public AudioPlayer _audio;
 
 
     public EnemyState _curState { private set; get; }
@@ -68,6 +69,7 @@ public class NormalEnemy : PoolableMono
         _navmesh = GetComponent<NavMeshAgent>();
         _ani = GetComponent<Animator>();
         _line = GetComponent<LineRenderer>();
+        _audio = GetComponent<AudioPlayer>();
 
         _navmesh.speed = _moveSpeed;
 
